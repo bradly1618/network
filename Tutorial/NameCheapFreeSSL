@@ -1,0 +1,90 @@
+Installing the Acme SSH and Configure SSL LetsEncrypt Cert
+
+1. Get the Acme installed.
+  
+curl https://get.acme.sh | sh
+
+2. Creating the SSL for the domain using Acme SH
+
+.acme.sh/acme.sh --issue -d petua.organix.cc -w /home/halazqia/public_html/petua/ --server letsencrypt
+
+4. Open cPanel  new tab for File Manager and look for .acme.Sh folder, if hidden enable it at Settings.  2 files to open xxxx.cer and xxxx.key file.
+
+5.In another cPanel dashboard ,go to SSL/TLS-->Manage SSL Sites. Select the domain/subdomain to install the SSL. 
+  Used above xxx.cer (Certifcate (CRT) ) and xxx.key  (Private Key(KEY) to install the SSL. Ignore others. Click Install Certificate. 
+
+6. To check go to cPanel dashboard , Cronjob and look if the job is running or not. Relax and your website will be ready with free SSL :-)
+--------------------------------------------------------------------------------
+
+[halazqia@business82 ~]$ curl https://get.acme.sh | sh
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+103  1032    0  1032    0     0   2915      0 --:--:-- --:--:-- --:--:-- 21500
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  216k  100  216k    0     0   359k      0 --:--:-- --:--:-- --:--:--  480k
+[Sat Sep  2 21:06:09 EDT 2023] Installing from online archive.
+[Sat Sep  2 21:06:09 EDT 2023] Downloading https://github.com/acmesh-official/acme.sh/archive/master.tar.gz
+[Sat Sep  2 21:06:10 EDT 2023] Extracting master.tar.gz
+[Sat Sep  2 21:06:11 EDT 2023] It is recommended to install socat first.
+[Sat Sep  2 21:06:11 EDT 2023] We use socat for standalone server if you use standalone mode.
+[Sat Sep  2 21:06:11 EDT 2023] If you don't use standalone mode, just ignore this warning.
+[Sat Sep  2 21:06:11 EDT 2023] Installing to /home/halazqia/.acme.sh
+[Sat Sep  2 21:06:11 EDT 2023] Installed to /home/halazqia/.acme.sh/acme.sh
+[Sat Sep  2 21:06:11 EDT 2023] Installing alias to '/home/halazqia/.bashrc'
+[Sat Sep  2 21:06:11 EDT 2023] OK, Close and reopen your terminal to start using acme.sh
+[Sat Sep  2 21:06:11 EDT 2023] Installing cron job
+[Sat Sep  2 21:06:12 EDT 2023] Good, bash is found, so change the shebang to use bash as preferred.
+[Sat Sep  2 21:06:14 EDT 2023] OK
+[Sat Sep  2 21:06:14 EDT 2023] Install success!
+[halazqia@business82 ~]$ pwd
+/home/halazqia
+[halazqia@business82 ~]$ .acme.sh/acme.sh --issue -d petua.organix.cc -w /home/halazqia/public_html/petua/ --server letsencrypt
+[Sat Sep  2 21:10:47 EDT 2023] Using CA: https://acme-v02.api.letsencrypt.org/directory
+[Sat Sep  2 21:10:47 EDT 2023] Create account key ok.
+[Sat Sep  2 21:10:47 EDT 2023] Registering account: https://acme-v02.api.letsencrypt.org/directory
+[Sat Sep  2 21:10:47 EDT 2023] Registered
+[Sat Sep  2 21:10:47 EDT 2023] ACCOUNT_THUMBPRINT='4gKqfU_yawVSg49GXhcCWeR4spCArobElHTRBeYwB_4'
+[Sat Sep  2 21:10:47 EDT 2023] Creating domain key
+[Sat Sep  2 21:10:48 EDT 2023] The domain key is here: /home/halazqia/.acme.sh/petua.organix.cc_ecc/petua.organix.cc.key
+[Sat Sep  2 21:10:48 EDT 2023] Single domain='petua.organix.cc'
+[Sat Sep  2 21:10:48 EDT 2023] Getting domain auth token for each domain
+[Sat Sep  2 21:10:49 EDT 2023] Getting webroot for domain='petua.organix.cc'
+[Sat Sep  2 21:10:49 EDT 2023] Verifying: petua.organix.cc
+[Sat Sep  2 21:10:49 EDT 2023] Pending, The CA is processing your order, please just wait. (1/30)
+[Sat Sep  2 21:10:53 EDT 2023] Success
+[Sat Sep  2 21:10:53 EDT 2023] Verify finished, start to sign.
+[Sat Sep  2 21:10:53 EDT 2023] Lets finalize the order.
+[Sat Sep  2 21:10:53 EDT 2023] Le_OrderFinalize='https://acme-v02.api.letsencrypt.org/acme/finalize/1288950116/205811927856'
+[Sat Sep  2 21:10:54 EDT 2023] Downloading cert.
+[Sat Sep  2 21:10:54 EDT 2023] Le_LinkCert='https://acme-v02.api.letsencrypt.org/acme/cert/04522b85fe6b94e30bc76d12bfbfbd42a550'
+[Sat Sep  2 21:10:55 EDT 2023] Cert success.
+-----BEGIN CERTIFICATE-----
+MIIEIjCCAwqgAwIBAgISBFIrhf5rlOMLx20Sv7+9QqVQMA0GCSqGSIb3DQEBCwUA
+MDIxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQD
+EwJSMzAeFw0yMzA5MDMwMDEwNTNaFw0yMzEyMDIwMDEwNTJaMBsxGTAXBgNVBAMT
+EHBldHVhLm9yZ2FuaXguY2MwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQy/aQU
+jfYo6o5W+lszet5uE5zJqqeyRrACdkLZwtfwGBmBFSr/VDaEN76fldLmePENt+wl
+M2lhsQYAc2mcmC2Oo4ICEjCCAg4wDgYDVR0PAQH/BAQDAgeAMB0GA1UdJQQWMBQG
+CCsGAQUFBwMBBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBS4iTma
+WBoIGa4YVuZjdPYZAXs7+jAfBgNVHSMEGDAWgBQULrMXt1hWy65QCUDmH6+dixTC
+xjBVBggrBgEFBQcBAQRJMEcwIQYIKwYBBQUHMAGGFWh0dHA6Ly9yMy5vLmxlbmNy
+Lm9yZzAiBggrBgEFBQcwAoYWaHR0cDovL3IzLmkubGVuY3Iub3JnLzAbBgNVHREE
+FDASghBwZXR1YS5vcmdhbml4LmNjMBMGA1UdIAQMMAowCAYGZ4EMAQIBMIIBBAYK
+KwYBBAHWeQIEAgSB9QSB8gDwAHUAejKMVNi3LbYg6jjgUh7phBZwMhOFTTvSK8E6
+V6NS61IAAAGKWJe9PQAABAMARjBEAiB6HQL7OuoUBF8QcsxU8BO30Fm0f10y0OzA
+WdV0QP7xkAIgJwka6/Frgt7M1zLAyUdPRnFn8NRixgHpihyboCwZSagAdwDoPtDa
+PvUGNTLnVyi8iWvJA9PL0RFr7Otp4Xd9bQa9bgAAAYpYl70xAAAEAwBIMEYCIQDZ
+z/XI5X8xR7LHYzYfUc8+GQG8OCZKMSa1pDOf1BFk1AIhAIXtFrG8G2kU84oU2yXC
+1wk9pM2WLq8QlsM2dFL6bTquMA0GCSqGSIb3DQEBCwUAA4IBAQAVelx6SSAX2ChL
+QSuGcP5J6PNWp9KlGTpnXQO8GrWe/TGvigDSJu12uoR9Enn46E3VOK+8l61w+cgQ
++YfACxzhXRiUwPJXZFNgdZwncNFg5rphZwiPg6bx8F+LLx03NHRu0DQnVmTYnxYS
+4qhaswoH5VK1Ng81GOmPEJ/tQqzr8ZTVdwrj0nrSQzT1qaZAxLfQoLH9FjVbdTki
+vK0mC7/TX5YsNe33rIiutnfu54fEJh1OBq7hAxtaey7EBR47rWvsxcqShA1qjyTE
+hqcuBU6F1wpmQ12UqnLXQ+Dy1Fepc594WNjmddCYFr5VwVypbKqw97GvWLq3cY1U
+DGHi1nbb
+-----END CERTIFICATE-----
+[Sat Sep  2 21:10:55 EDT 2023] Your cert is in: /home/halazqia/.acme.sh/petua.organix.cc_ecc/petua.organix.cc.cer
+[Sat Sep  2 21:10:55 EDT 2023] Your cert key is in: /home/halazqia/.acme.sh/petua.organix.cc_ecc/petua.organix.cc.key
+[Sat Sep  2 21:10:55 EDT 2023] The intermediate CA cert is in: /home/halazqia/.acme.sh/petua.organix.cc_ecc/ca.cer
+[Sat Sep  2 21:10:55 EDT 2023] And the full chain certs is there: /home/halazqia/.acme.sh/petua.organix.cc_ecc/fullchain.cer
